@@ -2,7 +2,7 @@ __author__ = "Vanessa Sochat"
 __copyright__ = "Copyright 2022, Vanessa Sochat"
 __license__ = "MPL 2.0"
 
-__version__ = "0.0.0"
+__version__ = "0.0.1"
 AUTHOR = "Vanessa Sochat"
 EMAIL = "vsoch@users.noreply.github.com"
 NAME = "cssclean"
@@ -15,7 +15,7 @@ LICENSE = "LICENSE"
 # Global requirements
 
 INSTALL_REQUIRES = (
-    ("tinycss", {"min_version": None}),
+    ("tinycss2", {"min_version": None}),
     ("beautifulsoup4", {"min_version": None}),
 )
 

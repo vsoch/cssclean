@@ -1,2 +1,2 @@
-tinycss
+tinycss2
 beautifulsoup4
