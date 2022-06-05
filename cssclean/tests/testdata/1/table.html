@@ -1,0 +1,124 @@
+---
+layout: default
+---
+
+<header>
+
+<h1 id="title" style="color:white"><img style="width:100px;padding-right:10px" src="{{ site.baseurl }}/assets/img/spack-logo.svg" />Spack Build Cache <small>{{ page.tag }}</small></h1>
+<link rel='stylesheet' href='https://cdn.datatables.net/plug-ins/f2c75b7247b/integration/bootstrap/3/dataTables.bootstrap.css'>
+<link rel='stylesheet' href='https://cdn.datatables.net/responsive/1.0.4/css/dataTables.responsive.css'>
+</header>
+
+<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css'>
+<link rel='stylesheet' href='https://cdn.datatables.net/plug-ins/f2c75b7247b/integration/bootstrap/3/dataTables.bootstrap.css'>
+<link rel='stylesheet' href='https://cdn.datatables.net/responsive/1.0.4/css/dataTables.responsive.css'>
+
+<style>
+#title {
+  cursor:pointer;
+}
+#software_filter, #software_length, #software_info {
+ color: white;
+}
+.card {
+  width:120px !important;
+  min-height: 100px !important;
+  cursor: default !important;
+}
+}
+</style>
+</header>
+
+<div class="container">
+<main id="app" class="grid flex-grid" style="justify-content:center;">
+<div class="card"><span style="font-size:20px;font-weight:600">{{ site.data.meta[page.tag].count }}</span> Entries</div>
+<div class="card"><span style="font-size:20px;font-weight:600">{{ site.data.meta[page.tag].compiler_count }}</span> Compilers</div>
+<div class="card"><span style="font-size:20px;font-weight:600">{{ site.data.meta[page.tag].parameter_count }}</span> Variants</div>
+</main>
+
+<a class="button reset filter-reset" onclick="$('#software').DataTable().search('').draw()" style='float:right;padding-bottom:5px' href="#">reset</a></li>
+
+<table id="software"  class="table table-bordered" cellspacing="0" width="100%">
+    <thead>
+        <tr>
+            <th>UID</th>
+            <th># Specs</th>
+            <th>Tag</th>
+            <th>Package</th>
+            <th>Versions</th>
+            <th>Compilers</th>
+        </tr>
+  </thead>      
+</table>
+</div>
+
+{% include footer.html %}
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+<script>
+$(document).ready(function(){
+
+$("#title").click(function(){
+    document.location = "{{ site.baseurl }}/"
+})
+$.getJSON( "{{ site.baseurl }}/api/data.json", function( data ) {
+
+
+{% if page.tag != "all" %}
+function filterTag(value) {
+  return value['tag'] == "{{ page.tag }}"
+}
+data = data.filter(filterTag){% endif %}
+console.log(data)
+
+$('#software').DataTable( {
+  data: data,
+  pageLength: 50,
+  columns: [
+    { data: "uid",
+      render: function ( data, type, row ) { return "<a href='" + row['rel'] + "'>" + data +"</a>";},
+      targets: 1,
+    },
+    {data: 'specs'},
+    { data: "tag",
+      render: function ( data, type, row ) { return row['tag']},
+    },
+    { data: null,
+      render: function ( data, type, row ) { return "<a href='" + row['url']  + "' target='_blank'> View Package </a>"},   
+    },
+    {data: 'versions',
+      render: function ( data, type, row ) { 
+         var versions = ""
+         if(data.length > 0) {
+           $.each(data, function(i, e){
+              versions += " " + e;
+           })
+         }
+         return versions
+      },
+      targets: 0,    
+    },
+    {data: "compilers", 
+      render: function ( data, type, row ) { 
+         var compilers = ""
+         if(data.length > 0) {
+           $.each(data, function(i, e){
+              compilers += "<button onclick=$('#software').DataTable().search('"+ e +"').draw(); class='tag button btn btn-primary btn-xs'>" + e + "</button> ";
+           })
+         }
+         return compilers
+      },
+      targets: 0,
+    }
+  ]
+});
+});
+
+})
+</script>
+<script src='https://cdn.datatables.net/1.10.5/js/jquery.dataTables.min.js'></script>
+<script src='https://cdn.datatables.net/plug-ins/f2c75b7247b/integration/bootstrap/3/dataTables.bootstrap.js'></script>
+<script src='https://cdn.datatables.net/responsive/1.0.4/js/dataTables.responsive.js'></script>
+</body>
+</html>
+
