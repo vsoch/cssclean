@@ -141,7 +141,7 @@ class Cleaner:
     def include_rule(self, rule, selectors):
         """
         Determine if a rule should be included based on known selectors.
-        
+
         To be conservative we don't break apart rules. We could do this
         if we are willing to also parse the extra tokens.
         """

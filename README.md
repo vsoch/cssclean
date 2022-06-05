@@ -2,11 +2,11 @@
 
 [![PyPI version](https://badge.fury.io/py/cssclean.svg)](https://badge.fury.io/py/cssclean)
 
-<img src="./docs/img/logo.jpg" width="300px">
-
 This is a library for cleaning up css based on styles that are actually used in html files.
 Although there are [libraries that use npm](https://www.keycdn.com/blog/remove-unused-css)
 I am not a fan so I wanted something in Python.
+
+<img src="./docs/img/logo.jpg" width="500px">
 
 ## Approach
 
