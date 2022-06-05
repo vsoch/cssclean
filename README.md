@@ -2,6 +2,8 @@
 
 [![PyPI version](https://badge.fury.io/py/cssclean.svg)](https://badge.fury.io/py/cssclean)
 
+<img src="./docs/img/logo.jpg" width="300px">
+
 This is a library for cleaning up css based on styles that are actually used in html files.
 Although there are [libraries that use npm](https://www.keycdn.com/blog/remove-unused-css)
 I am not a fan so I wanted something in Python.
@@ -12,7 +14,8 @@ We take a conservative approach to filtering, meaning:
 
  - for any style block, one matching class or identifier is sufficient for inclusion
  - multiple levels selectors are not combined (e.g., using "button" is sufficient to add `.button. red`.
- - we always keep keyframes. Additional parsing could be added to support checking, but they are fairly rare (imho).
+ - we always keep keyframes and imports. Additional parsing could be added to support checking, but they are fairly rare (imho).
+ - The library is **new** and I may have missed a case! Please [open an issue](https://github.com/vsoch/cssclean/issues) if you find something.
 
 Of course this could be improved upon but we would need more careful token parsing!
 Please [open an issue](https://github.com/vsoch/cssclean/issues) if you are interested. 
@@ -185,3 +188,5 @@ tool to generate a contributors graphic below.
 ## License
 
 This code is licensed under the MPL 2.0 [LICENSE](LICENSE).
+
+<img src="./docs/img/vsoch.jpg" width="100px">
