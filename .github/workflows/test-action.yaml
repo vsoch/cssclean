@@ -17,5 +17,5 @@ jobs:
       - name: Test CSS Clean
         uses: ./action/clean
         with:
-          css: tests/testdata/1/style.css
-          html: tests/testdata/1/table.html tests/testdata/1/home.html
+          css: cssclean/tests/testdata/1/style.css
+          html: cssclean/tests/testdata/1/table.html cssclean/tests/testdata/1/home.html
