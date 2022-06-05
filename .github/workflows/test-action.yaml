@@ -1,0 +1,21 @@
+name: test-action
+
+on:
+  pull_request: []
+
+jobs:
+  test-action:
+    name: Test Build Action
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Install CSS Clean
+        run: pip install -e .[all]
+
+      - name: Test CSS Clean
+        uses: ./action/clean
+        with:
+          css: tests/testdata/1/style.css
+          html: tests/testdata/1/table.html tests/testdata/1/home.html

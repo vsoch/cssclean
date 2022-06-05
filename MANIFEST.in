@@ -2,6 +2,7 @@ include README.md LICENSE
 recursive-include cssclean *
 prune env*
 prune compose*
+prune cssclean/tests
 global-exclude .env
 global-exclude *.py[co]
 recursive-exclude .git *
