@@ -6,7 +6,7 @@ This is a library for cleaning up css based on styles that are actually used in 
 Although there are [libraries that use npm](https://www.keycdn.com/blog/remove-unused-css)
 I am not a fan so I wanted something in Python.
 
-<img src="./docs/img/logo.jpg" width="500px">
+<img src="https://raw.githubusercontent.com/vsoch/cssclean/main/docs/img/logo.jpg" width="500px">
 
 ## Approach
 
@@ -189,4 +189,4 @@ tool to generate a contributors graphic below.
 
 This code is licensed under the MPL 2.0 [LICENSE](LICENSE).
 
-<img src="./docs/img/vsoch.jpg" width="100px">
+<img src="https://raw.githubusercontent.com/vsoch/cssclean/main/docs/img/vsoch.jpg" width="100px">
