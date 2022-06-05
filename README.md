@@ -6,12 +6,16 @@ This is a library for cleaning up css based on styles that are actually used in 
 Although there are [libraries that use npm](https://www.keycdn.com/blog/remove-unused-css)
 I am not a fan so I wanted something in Python.
 
+<img src="./docs/img/logo.jpg" width="500px">
+
 ## Approach
 
 We take a conservative approach to filtering, meaning:
 
  - for any style block, one matching class or identifier is sufficient for inclusion
  - multiple levels selectors are not combined (e.g., using "button" is sufficient to add `.button. red`.
+ - we always keep keyframes and imports. Additional parsing could be added to support checking, but they are fairly rare (imho).
+ - The library is **new** and I may have missed a case! Please [open an issue](https://github.com/vsoch/cssclean/issues) if you find something.
 
 Of course this could be improved upon but we would need more careful token parsing!
 Please [open an issue](https://github.com/vsoch/cssclean/issues) if you are interested. 
@@ -91,7 +95,8 @@ Sheet style.css filtered down to 43 rules.
   style.css => ./out/style.clean.min.css
 ```
 
-Note that "min" is added to the saved filename.
+Note that "min" is added to the saved filename, and also note that this is experimental - I'll need to do
+some more tests and reading to figure out what exactly the process is.
 
 ### Output Directory
 
@@ -108,7 +113,50 @@ Sheet style.css filtered down to 43 rules.
   style.css => ./out/style.clean.css
 ```
 
+## Example
 
+As an example, I tested against the usrse site. We can render the site into ``_site``:
+
+```bash
+$ bundle exec jekyll build
+```
+
+and then run the clean in place. Here is the original style file:
+
+```bash
+$ ls -l style.css 
+-rw-rw-r-- 1 dinosaur dinosaur 263390 Jun  4 20:57 style.css
+```
+We can then run the clean in place:
+
+```bash
+$ cssclean clean --css assets/css/style.css --html _site/ --in-place
+Sheet style.css has 4080 rules.
+Sheet style.css filtered down to 1380 rules.
+1 files written:
+  style.css => assets/css/style.css
+```
+
+And what is the new size?
+
+```bash
+$ ls -l style.css 
+-rw-rw-r-- 1 dinosaur dinosaur 201347 Jun  5 15:11 style.css
+```
+
+So there is a huge reduction in size when we first remove unused stuff (-62043 bytes)!
+To summarize:
+
+ - original: ~263KB
+ - cleaned: ~201KB
+
+And importantly, the site looks the same!
+
+![docs/img/usrse-site.png](docs/img/usrse-site.png)
+
+So personally, I don't have issue with the size differences between minified and cleaned - my preference is not to
+minify so I can easily read it, but I can also imagine a workflow where you minify just for the production
+site and the development version is just cleaned. It's really up to you!
 
 ## Contributors
 
@@ -135,8 +183,10 @@ tool to generate a contributors graphic below.
  - create GitHub actions - one to actually clean and one to detect (fail if unused)
  - automated release
  - some kind of summary command that shows used/unused styles, or the count
- - contributors workflow
+ - can we use asp to determine used rules?
  
 ## License
 
 This code is licensed under the MPL 2.0 [LICENSE](LICENSE).
+
+<img src="./docs/img/vsoch.jpg" width="100px">

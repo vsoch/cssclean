@@ -15,7 +15,9 @@ def collect_files(contenders, ext):
     Collect files based on allowed extension.
     """
     paths = []
-    for path in contenders:
+    for path in contenders or []:
+        if path == ".":
+            path = os.getcwd()
         if (
             os.path.isfile(path)
             and path.endswith(ext)
@@ -127,7 +129,6 @@ class Cleaner:
             # Updated set of rules
             rules = []
             for rule in sheet:
-
                 # We are conservative and don't try to break apart rules
                 if self.include_rule(rule, selectors):
                     rules.append(rule)
@@ -140,7 +141,7 @@ class Cleaner:
     def include_rule(self, rule, selectors):
         """
         Determine if a rule should be included based on known selectors.
-        
+
         To be conservative we don't break apart rules. We could do this
         if we are willing to also parse the extra tokens.
         """
@@ -150,6 +151,10 @@ class Cleaner:
         if isinstance(rule, tinycss2.ast.WhitespaceToken):
             return False
 
+        # Keep these, would require deeper parsing (open issue if interested)
+        if rule.type == "at-rule" and rule.at_keyword in ["keyframes", "import"]:
+            return True
+
         # Check components list based on type
         # E.g., max width - we have to check components inside
         if rule.type == "at-rule":
@@ -157,10 +162,24 @@ class Cleaner:
         else:
             comps = rule.prelude or []
         for r in comps:
+            if self._is_qualifier(r):
+                continue
             if getattr(r, "is_identifier", False) == True and r.value in selectors:
                 return True
             if r.type == "ident" and r.value in keepers or r.value in selectors:
                 return True
+
+    def _is_qualifier(self, r):
+        """
+        A qualifier component is not relevant to making an inclusion decision
+        """
+        if isinstance(r, tinycss2.ast.SquareBracketsBlock):
+            return True
+        if isinstance(r, tinycss2.ast.CurlyBracketsBlock):
+            return True
+        if isinstance(r, tinycss2.ast.FunctionBlock):
+            return True
+        return False
 
     def collect_styles(self, files):
         """

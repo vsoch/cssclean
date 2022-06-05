@@ -1,0 +1,50 @@
+name: "Clean CSS"
+description: "Clean css files of un-used styles"
+inputs:
+  css:
+    description: List of css files or directories to include
+    required: true
+  html:
+    description: List of html files or directories to include
+    required: false
+  in_place:
+    description: write css files in place
+    required: true
+    default: false
+  outdir:
+    description: Custom output directory
+    required: false
+
+runs:
+  using: "composite"
+  steps:
+    - name: Install css clean
+      run: which cssclean || pip install cssclean
+      shell: bash
+
+    - name: Clean CSS
+      env:
+        _css: ${{ inputs.css }}
+        _html: ${{ inputs.html }}
+        in_place: ${{ inputs.in_place }}
+        outdir: ${{ inputs.outdir }}
+      shell: bash
+      run: |
+        # Assemble css and html files
+        css=""
+        html=""
+        for filename in $(echo $_css); do
+            css="$css --css $filename"
+        done
+        for filename in $(echo $_html); do
+           html="$html --html $filename"
+        done
+        cmd="cssclean clean $css $html"
+        if [[ "${in_place}" == "true" ]]; then
+            cmd="$cmd --in-place"        
+        fi
+        if [[ "${outdir}" != "" ]]; then
+            cmd="$cmd --outdir $outdir"        
+        fi
+        echo $cmd
+        $cmd

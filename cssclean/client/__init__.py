@@ -71,10 +71,16 @@ def get_parser():
         "clean", help="clean a set of css files based on usage in html"
     )
     clean.add_argument(
-        "--css", "-c", action="append", help="A css file or folder to include",
+        "--css",
+        "-c",
+        action="append",
+        help="A css file or folder to include",
     )
     clean.add_argument(
-        "--html", "-t", action="append", help="An html file or directory to include",
+        "--html",
+        "-t",
+        action="append",
+        help="An html file or directory to include",
     )
     clean.add_argument(
         "--dry-run",
@@ -99,7 +105,9 @@ def get_parser():
         action="store_true",
     )
     clean.add_argument(
-        "--outdir", "-o", help="Write cleaned css files to output directory",
+        "--outdir",
+        "-o",
+        help="Write cleaned css files to output directory",
     )
     return parser
 
