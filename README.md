@@ -135,7 +135,8 @@ tool to generate a contributors graphic below.
  - create GitHub actions - one to actually clean and one to detect (fail if unused)
  - automated release
  - some kind of summary command that shows used/unused styles, or the count
-
+ - contributors workflow
+ 
 ## License
 
 This code is licensed under the MPL 2.0 [LICENSE](LICENSE).
