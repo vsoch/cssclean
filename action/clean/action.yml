@@ -39,7 +39,7 @@ runs:
         for filename in $(echo $_html); do
            html="$html --html $filename"
         done
-        cmd="cssclean $css $html"
+        cmd="cssclean clean $css $html"
         if [[ "${in_place}" == "true" ]]; then
             cmd="$cmd --in-place"        
         fi
