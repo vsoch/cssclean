@@ -4,11 +4,13 @@ __license__ = "MPL 2.0"
 
 import os
 import re
-import tinycss2
+
+import bs4
 import sass
+import tinycss2
+
 import cssclean.utils as utils
 from cssclean.logger import logger
-import bs4
 
 
 def collect_files(contenders, pattern):
@@ -200,7 +202,10 @@ class Cleaner:
         sheets = {}
         for filename in files:
             if filename.endswith("scss"):
-                css = sass.compile(filename=filename)
+
+                # Always read relative to file
+                with utils.workdir(os.path.dirname(filename)):
+                    css = sass.compile(filename=os.path.basename(filename))
                 converted_file = re.sub("[.]scss$", ".css", filename)
                 sheets[converted_file] = tinycss2.parse_stylesheet(css)
             else:

@@ -3,9 +3,10 @@ __copyright__ = "Copyright 2022, Vanessa Sochat"
 __license__ = "MPL 2.0"
 
 
-from cssclean.logger import logger
-from subprocess import Popen, PIPE, STDOUT
 import os
+from subprocess import PIPE, STDOUT, Popen
+
+from cssclean.logger import logger
 
 
 def which(software=None, strip_newline=True):
