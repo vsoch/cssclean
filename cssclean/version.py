@@ -15,6 +15,7 @@ LICENSE = "LICENSE"
 # Global requirements
 
 INSTALL_REQUIRES = (
+    ("libsass", {"min_version": None}),
     ("tinycss2", {"min_version": None}),
     ("beautifulsoup4", {"min_version": None}),
 )

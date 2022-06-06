@@ -19,3 +19,9 @@ jobs:
         with:
           css: cssclean/tests/testdata/1/style.css
           html: cssclean/tests/testdata/1/table.html cssclean/tests/testdata/1/home.html
+          
+      - name: Test SCSS Clean
+        uses: ./action/clean
+        with:
+          css: cssclean/tests/testdata/3/style.scss
+          html: cssclean/tests/testdata/3/index.html
