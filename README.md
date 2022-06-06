@@ -158,6 +158,21 @@ So personally, I don't have issue with the size differences between minified and
 minify so I can easily read it, but I can also imagine a workflow where you minify just for the production
 site and the development version is just cleaned. It's really up to you!
 
+## GitHub Action
+
+You can use this tool as a GitHub action! Here's how.
+
+```yaml
+  - name: Test CSS Clean
+    uses: vsoch/cssclean/action/clean@main
+    with:
+      css: cssclean/tests/testdata/1/style.css
+      html: cssclean/tests/testdata/1/table.html cssclean/tests/testdata/1/home.html
+      in_place: true
+```
+
+See the [action](action) folder, action.yml file for more parameters and descriptions.
+
 ## Contributors
 
 We use the [all-contributors](https://github.com/all-contributors/all-contributors) 
