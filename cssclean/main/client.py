@@ -102,7 +102,7 @@ class Cleaner:
         """
         Write a sheet to file, not minimized
         """
-        return "".join([x.serialize() for x in sheet])
+        return "\n".join([x.serialize() for x in sheet])
 
     def do_print(self, styles, minify=False):
         """
