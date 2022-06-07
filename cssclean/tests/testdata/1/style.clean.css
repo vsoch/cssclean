@@ -1,3 +1,4 @@
+@import url(https://fonts.googleapis.com/css?family=Raleway:400,700,900);
 :root {
   --color-red: #c0392b;
   --color-red-dark: #962d22;
@@ -22,7 +23,8 @@
   --color-asphalt-light: #46637f;
   --scene-background-color: #0f3a80;
   --scene-background-falloff: #06275e;
-}body {
+}
+body {
   margin: 0;
   min-height: 100vh;
   padding: 2rem 0;
@@ -31,49 +33,60 @@
   color: black;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
-}h1, h2, h3, h4, h5, h6 {
+}
+h1, h2, h3, h4, h5, h6 {
     font-family: "Raleway", sans-serif;
     font-weight: 700;
     margin-top:50px;
-}a {
+}
+a {
   border-bottom: 1px dotted var(--color-asphalt);
   text-decoration: none;
   color: var(--color-asphalt);
-}body > header {
+}
+body > header {
   margin: 0 auto 5rem;
   padding: .75rem;
   max-width: 1000px;
   border-radius: .75rem;
   box-sizing: border-box;
   text-align: center;
-}body > header h1 {
+}
+body > header h1 {
   margin: .75rem 0 .75rem;
   font-weight: 700;
   font-size: 6rem;
   line-height: 6rem;
-}body > header h2 {
+}
+body > header h2 {
   margin: 12px 0 12px;
   font-weight: 700;
   font-size: 2rem;
   line-height: 2rem;
-}body > header p {
+}
+body > header p {
   font-size: 1.25rem;
   line-height: 1.75rem;
-}/* ------------------------------------------
+}
+/* ------------------------------------------
    navigation
-   ------------------------------------------ */body > nav {
+   ------------------------------------------ */
+body > nav {
   margin: 0 auto 2rem;
   padding: .75rem;
   max-width: 1000px;
   text-align: center;
-}body > nav ul {
+}
+body > nav ul {
   padding: 0;
   list-style: none;
   display: flex;
   justify-content: center;
-}body > nav li {
+}
+body > nav li {
   padding: 0 5px;
-}.button {
+}
+.button {
   display: inline-block;
   transition: all .5s;
   padding: 5px 10px;
@@ -82,60 +95,85 @@
   cursor: pointer;
   color: white;
   text-decoration: none;
-}.button.red {
+}
+.button.red {
   background-color: var(--color-red);
-}.button.red:hover {
+}
+.button.red:hover {
   background-color: var(--color-red-dark);
-}.button.red:active {
+}
+.button.red:active {
   background-color: var(--color-red-light);
-}.button.blue {
+}
+.button.blue {
   background-color: var(--color-blue);
-}.button.blue:hover {
+}
+.button.blue:hover {
   background-color: var(--color-blue-dark);
-}.button.blue:active {
+}
+.button.blue:active {
   background-color: var(--color-blue-light);
-}.button.yellow {
+}
+.button.yellow {
   background-color: var(--color-yellow);
-}.button.yellow:hover {
+}
+.button.yellow:hover {
   background-color: var(--color-yellow-dark);
-}.button.yellow:active {
+}
+.button.yellow:active {
   background-color: var(--color-yellow-light);
-}.button.green {
+}
+.button.green {
   background-color: var(--color-green);
-}.button.green:hover {
+}
+.button.green:hover {
   background-color: var(--color-green-dark);
-}.button.green:active {
+}
+.button.green:active {
   background-color: var(--color-green-light);
-}.button.violet {
+}
+.button.violet {
   background-color: var(--color-violet);
-}.button.violet:hover {
+}
+.button.violet:hover {
   background-color: var(--color-violet-dark);
-}.button.violet:active {
+}
+.button.violet:active {
   background-color: var(--color-violet-light);
-}.button.orange {
+}
+.button.orange {
   background-color: var(--color-orange);
-}.button.orange:hover {
+}
+.button.orange:hover {
   background-color: var(--color-orange-dark);
-}.button.orange:active {
+}
+.button.orange:active {
   background-color: var(--color-orange-light);
-}.button.asphalt {
+}
+.button.asphalt {
   background-color: var(--color-asphalt);
-}.button.asphalt:hover {
+}
+.button.asphalt:hover {
   background-color: var(--color-asphalt-dark);
-}.button.asphalt:active {
+}
+.button.asphalt:active {
   background-color: var(--color-asphalt-light);
-}.site-footer a {
+}
+.site-footer a {
   color: white;
-}.flex-grid {
+}
+.flex-grid {
   display: flex;
   flex-wrap: wrap;
   margin: 0 auto;
   max-width: 2000px;
-}@media only screen and (max-width: 600px) {
+}
+@media only screen and (max-width: 600px) {
   .card {
     width: calc(100%) !important;
   }
-}.card {
+}
+.card {
   overflow: hidden;
   cursor: pointer;
   background-color: white;
@@ -148,15 +186,20 @@
   color: #333;
   min-height: 150px;
   width: calc(10%);
-}/*.card:hover {
+}
+/*.card:hover {
   transform: scale(1.1);
   background-color: white;
-}*/.card.red {
+}*/
+.card.red {
   background-color: var(--color-red);
-}.card.blue {
+}
+.card.blue {
   background-color: var(--color-blue);
-}.card.yellow {
+}
+.card.yellow {
   background-color: var(--color-yellow);
-}tr {
+}
+tr {
   background-color: white;
 }

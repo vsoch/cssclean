@@ -5,10 +5,11 @@ __copyright__ = "Copyright 2022, Vanessa Sochat"
 __license__ = "MPL 2.0"
 
 
-import cssclean
-from cssclean.logger import setup_logger
 import argparse
 import sys
+
+import cssclean
+from cssclean.logger import setup_logger
 
 
 def get_parser():

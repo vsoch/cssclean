@@ -75,6 +75,26 @@ tr {
 }
 ```
 
+### SCSS
+
+We have support for cleaning of scss files, meaning that you will generate a final cleaned
+css file from a potential directory of inputs. As an example, we can use the hierarchy under
+test data, where the main style file is ``style.scss`` that includes all the others:
+
+```bash
+$ cssclean clean --css cssclean/tests/testdata/3/style.scss --html cssclean/tests/testdata/3/index.html
+```
+```bash
+Sheet style.css has 638 rules.
+Sheet style.css filtered down to 298 rules.
+1 files written:
+  style.css => cssclean/tests/testdata/3/style.clean.css
+```
+
+All imports are required to exist since we are actually rendering the sass into css
+in the library.
+
+
 ### Minify
 
 And you can ask for the same preview, but minified:
@@ -192,10 +212,19 @@ tool to generate a contributors graphic below.
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
+## Thanks!
+
+This library wouldn't be possible without these fantastic other libraries!
+
+ - [libsass-python](https://github.com/sass/libsass-python/blob/main/sass.py)
+ - [tinycss2](https://github.com/Kozea/tinycss2)
+ - [BeautifulSoup4](https://www.crummy.com/software/BeautifulSoup/)
+
+
 ## TODO
 
  - add tests for different cases
- - create GitHub actions - one to actually clean and one to detect (fail if unused)
+ - create GitHub action to detect (fail if unused)
  - automated release
  - some kind of summary command that shows used/unused styles, or the count
  - can we use asp to determine used rules?

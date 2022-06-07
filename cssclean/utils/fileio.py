@@ -2,15 +2,16 @@ __author__ = "Vanessa Sochat"
 __copyright__ = "Copyright 2022, Vanessa Sochat"
 __license__ = "MPL 2.0"
 
-import hashlib
 import errno
+import hashlib
+import json
 import os
 import re
 import shutil
 import stat
 import tempfile
+from contextlib import contextmanager
 
-import json
 from cssclean.logger import logger
 
 
@@ -24,6 +25,22 @@ def list_modules(path):
             if filename.endswith(".py") and not filename.startswith("_"):
                 module_files.append(os.path.join(path, root, filename))
     return module_files
+
+
+@contextmanager
+def workdir(dirname):
+    """
+    Provide context for a working directory, e.g.,
+
+    with workdir(name):
+       # do stuff
+    """
+    here = os.getcwd()
+    os.chdir(dirname)
+    try:
+        yield
+    finally:
+        os.chdir(here)
 
 
 def creation_date(filename):

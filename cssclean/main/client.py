@@ -4,15 +4,18 @@ __license__ = "MPL 2.0"
 
 import os
 import re
+
+import bs4
+import sass
 import tinycss2
+
 import cssclean.utils as utils
 from cssclean.logger import logger
-import bs4
 
 
-def collect_files(contenders, ext):
+def collect_files(contenders, pattern):
     """
-    Collect files based on allowed extension.
+    Collect files based on allowed extension pattern
     """
     paths = []
     for path in contenders or []:
@@ -20,7 +23,7 @@ def collect_files(contenders, ext):
             path = os.getcwd()
         if (
             os.path.isfile(path)
-            and path.endswith(ext)
+            and re.search(pattern, path)
             and ".clean" not in os.path.basename(path)
         ):
             paths.append(path)
@@ -28,7 +31,7 @@ def collect_files(contenders, ext):
             for p in utils.recursive_find(path):
                 if (
                     os.path.isfile(p)
-                    and p.endswith(ext)
+                    and re.search(pattern, p)
                     and "clean" not in os.path.basename(p)
                 ):
                     paths.append(p)
@@ -42,10 +45,9 @@ class Cleaner:
         """
         Perform a clean operation.
         """
-        css = collect_files(css, ".css")
-        html = collect_files(html, ".html")
-        if not css or not html:
-            logger.exit("No html and/or css files detected - check paths!")
+        css = collect_files(css, "[.](css|scss)$")
+        html = collect_files(html, "[.](html|html)$")
+        self._ensure_both_filetypes(css, html)
 
         # Read in html and derive classes and div types
         elements = self.collect_html_elements(html)
@@ -86,11 +88,23 @@ class Cleaner:
             files[filename] = outfile
         return files
 
+    def _ensure_both_filetypes(self, css, html):
+        """
+        A CSS clean requires both css/html files, and we want to give a clear
+        message to the user about what is provided and missing.
+        """
+        if not css and not html:
+            logger.exit("No css or html files detected - check paths!")
+        if not css:
+            logger.exit("No css files detected - check paths!")
+        if not html:
+            logger.exit("No html files detected - check paths!")
+
     def write_sheet(self, sheet):
         """
         Write a sheet to file, not minimized
         """
-        return "".join([x.serialize() for x in sheet])
+        return "\n".join([x.serialize() for x in sheet])
 
     def do_print(self, styles, minify=False):
         """
@@ -187,7 +201,15 @@ class Cleaner:
         """
         sheets = {}
         for filename in files:
-            sheets[filename] = tinycss2.parse_stylesheet(utils.read_file(filename))
+            if filename.endswith("scss"):
+
+                # Always read relative to file
+                with utils.workdir(os.path.dirname(filename)):
+                    css = sass.compile(filename=os.path.basename(filename))
+                converted_file = re.sub("[.]scss$", ".css", filename)
+                sheets[converted_file] = tinycss2.parse_stylesheet(css)
+            else:
+                sheets[filename] = tinycss2.parse_stylesheet(utils.read_file(filename))
         return sheets
 
     def collect_html_elements(self, files):

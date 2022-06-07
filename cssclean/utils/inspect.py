@@ -2,10 +2,10 @@ __author__ = "Vanessa Sochat"
 __copyright__ = "Copyright 2022, Vanessa Sochat"
 __license__ = "MPL 2.0"
 
-import inspect
 import importlib
-import sys
+import inspect
 import os
+import sys
 
 
 def dynamic_import(name, path, allow_repeats=False):
